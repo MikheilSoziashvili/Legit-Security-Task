@@ -1,6 +1,6 @@
 import org.testng.annotations.Test;
 
-import static Steps.HomePageSteps.pickProducts;
+import static Steps.HomePageSteps.pickProductsAndVerify;
 import static Steps.LandingPageSteps.signIn;
 
 public class LegitTestSuite {
@@ -10,7 +10,7 @@ public class LegitTestSuite {
     @Test (testName = "Legit test")
     public void taskFlow() {
         signIn(userName, password);
-        pickProducts();
+        pickProductsAndVerify();
 
     }
 }
