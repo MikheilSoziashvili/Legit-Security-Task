@@ -12,7 +12,11 @@ import java.util.List;
 
 public class SetupClass {
 
-    static WebDriver driver;
+    public static WebDriver getDriver() {
+        return driver;
+    }
+
+    private static WebDriver driver;
 
     public static WebElement findElement(By locator) {
         return driver.findElement(locator);
@@ -52,7 +56,7 @@ public class SetupClass {
     public void launchBrowser() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
         driver.get("https://main.d2t1pk7fjag8u6.amplifyapp.com/");
     }
