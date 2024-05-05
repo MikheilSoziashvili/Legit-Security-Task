@@ -1,6 +1,5 @@
 package Steps;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -14,22 +13,27 @@ import static Utils.SetupClass.*;
 
 public class HomePageSteps {
 
-    public static void pickProductsAndVerify() {
-        List<Integer> addedProductIndices = addRandomProductsToCart();
-//        ((JavascriptExecutor) getDriver()).executeScript("window.scrollTo(0, 0);");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    public static List<Integer> pickProductsAndVerify() {
+        List<Integer> addedIndices = addRandomProductsToCart();
         findElement(shoppingCart).click();
 
-        //Asserting that valid products are added by appending returned index of picked items to the cart product titles
-        Assert.assertTrue(findElement(getElementByText("Product " + (addedProductIndices.get(0) + 1))).isDisplayed() &&
-                findElement(getElementByText("Product " + (addedProductIndices.get(1) + 1))).isDisplayed());
+        // Asserting that valid products are added
+        int firstProductIndex = addedIndices.get(0);
+        int secondProductIndex = addedIndices.get(1);
+        Assert.assertTrue(isProductDisplayed(firstProductIndex) && isProductDisplayed(secondProductIndex));
 
-//        return List<Integer> ;
+        List<Integer> indicesForValidation = new ArrayList<>();
+        indicesForValidation.add(firstProductIndex);
+        indicesForValidation.add(secondProductIndex);
+
+        return indicesForValidation;
     }
+
+    private static boolean isProductDisplayed(int index) {
+        String productName = "Product " + (index + 1);
+        return findElement(getElementByText(productName)).isDisplayed();
+    }
+
 
     protected static List<Integer> addRandomProductsToCart() {
         Random random = new Random();
@@ -47,8 +51,6 @@ public class HomePageSteps {
         while (secondProductIndex == firstProductIndex) {
             secondProductIndex = random.nextInt(cartButtons.size());
         }
-
-        System.out.println(firstProductIndex + " " + secondProductIndex);
 
         // Click on the 'Add to Cart' buttons for two randomly selected different products
         cartButtons.get(firstProductIndex).click();

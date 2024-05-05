@@ -5,18 +5,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
 import java.time.Duration;
 import java.util.List;
 
 public class SetupClass {
+    private static WebDriver driver;
 
     public static WebDriver getDriver() {
         return driver;
     }
-
-    private static WebDriver driver;
 
     public static WebElement findElement(By locator) {
         return driver.findElement(locator);
@@ -41,7 +41,6 @@ public class SetupClass {
         return By.xpath(xpathBuilder.toString());
     }
 
-
     public static By getElementById(String id, String... suffixes) {
         StringBuilder xpathBuilder = new StringBuilder("//*[@id='" + id + "']");
         for (String suffix : suffixes) {
@@ -51,7 +50,6 @@ public class SetupClass {
         return By.xpath(xpathBuilder.toString());
     }
 
-
     @BeforeSuite
     public void launchBrowser() {
         WebDriverManager.chromedriver().setup();
@@ -59,5 +57,10 @@ public class SetupClass {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
         driver.get("https://main.d2t1pk7fjag8u6.amplifyapp.com/");
+    }
+
+    @AfterSuite
+    public void tearDown() {
+        driver.quit();
     }
 }
