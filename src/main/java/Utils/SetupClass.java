@@ -54,9 +54,14 @@ public class SetupClass {
     @BeforeSuite
     public void launchBrowser() {
         WebDriverManager.chromedriver().setup();
-
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless"); // Run in headless mode (optional)
+
+        // Check for environment variable to determine if running in GitHub Actions
+        String isGithubActions = System.getenv("GITHUB_ACTIONS");
+
+        if ("true".equalsIgnoreCase(isGithubActions)) {
+            chromeOptions.addArguments("--headless");
+        }
 
         driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
