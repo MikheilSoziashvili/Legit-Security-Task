@@ -57,12 +57,8 @@ public class SetupClass {
 
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless"); // Run in headless mode (optional)
-        chromeOptions.addArguments("--no-sandbox");
-        chromeOptions.addArguments("--disable-dev-shm-usage");
-        chromeOptions.addArguments("--disable-gpu"); // Disable GPU rendering (optional)
-        chromeOptions.addArguments("--disable-extensions");
 
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
         driver.get("https://main.d2t1pk7fjag8u6.amplifyapp.com/");

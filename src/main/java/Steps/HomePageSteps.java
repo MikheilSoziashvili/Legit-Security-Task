@@ -51,11 +51,11 @@ public class HomePageSteps {
         while (secondProductIndex == firstProductIndex) {
             secondProductIndex = random.nextInt(cartButtons.size());
         }
+        System.out.println(firstProductIndex + " " + secondProductIndex);
 
         // Click on the 'Add to Cart' buttons for two randomly selected different products
         cartButtons.get(firstProductIndex).click();
         cartButtons.get(secondProductIndex).click();
-
         // Add the indices to the list
         selectedIndices.add(firstProductIndex);
         selectedIndices.add(secondProductIndex);
