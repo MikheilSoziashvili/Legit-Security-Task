@@ -50,3 +50,4 @@
     - Ensure WebDriver is properly set up via WebDriverManager.
     - Customize or add your tests in the `src/test` folder.
 
+**If there are any troubles initializing or execution of tests Please contact me**
