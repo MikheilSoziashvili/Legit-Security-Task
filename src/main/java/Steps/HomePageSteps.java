@@ -1,6 +1,7 @@
 package Steps;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -53,8 +54,17 @@ public class HomePageSteps {
         }
 
         // Click on the 'Add to Cart' buttons for two randomly selected different products
-        cartButtons.get(firstProductIndex).click();
-        cartButtons.get(secondProductIndex).click();
+        new Actions(getDriver())
+                .scrollToElement(cartButtons.get(firstProductIndex))
+                .click(cartButtons.get(firstProductIndex))
+                .build()
+                .perform();
+
+        new Actions(getDriver())
+                .scrollToElement(cartButtons.get(secondProductIndex))
+                .click(cartButtons.get(secondProductIndex))
+                .build()
+                .perform();
         // Add the indices to the list
         selectedIndices.add(firstProductIndex);
         selectedIndices.add(secondProductIndex);
