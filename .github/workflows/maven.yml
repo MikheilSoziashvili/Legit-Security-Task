@@ -25,27 +25,14 @@ jobs:
 
     # Install Google Chrome
     - name: Install Chrome
-      run: |
-        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-        sudo apt-get update
-        sudo apt-get install -y google-chrome-stable
+    # You may pin to the exact commit or the version.
+    # uses: logikal-io/install-chrome@074db03e25b1b5d42838b25dcca9b895450e4185
+      uses: logikal-io/install-chrome@v1.0.1
+      with:
+    # The version to install (exactly as in https://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-stable)
+        version: 124.0.6367.118-1
 
-    # Download and install ChromeDriver manually
-    - name: Install ChromeDriver
-      run: |
-        # Fetch the latest ChromeDriver version corresponding to the installed Chrome browser version
-        CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+' | head -1)
-        CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
-        if [ -z "$CHROMEDRIVER_VERSION" ]; then
-          CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-        fi
-        wget -N https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
-        unzip -q chromedriver_linux64.zip -d ~/bin/
-        rm chromedriver_linux64.zip
-        sudo mv ~/bin/chromedriver /usr/local/bin/chromedriver
-        sudo chmod +x /usr/local/bin/chromedriver
-
+          
     # Run tests with Maven
     - name: Execute Tests with Maven
       run: mvn clean test --file pom.xml
