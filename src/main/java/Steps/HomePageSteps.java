@@ -16,7 +16,11 @@ public class HomePageSteps {
 
     public static List<Integer> pickProductsAndVerify() {
         List<Integer> addedIndices = addRandomProductsToCart();
-        findElement(shoppingCart).click();
+        new Actions(getDriver())
+                .scrollToElement(findElement(shoppingCart))
+                .click(findElement(shoppingCart))
+                .build()
+                .perform();
 
         // Asserting that valid products are added
         int firstProductIndex = addedIndices.get(0);
@@ -46,7 +50,7 @@ public class HomePageSteps {
         }
 
         // Generate two different random indices for selecting products
-        int firstProductIndex = random.nextInt(cartButtons.size() - 2);
+        int firstProductIndex = random.nextInt(cartButtons.size());
         int secondProductIndex = firstProductIndex;
 
         while (secondProductIndex == firstProductIndex) {

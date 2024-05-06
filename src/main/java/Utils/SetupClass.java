@@ -56,7 +56,7 @@ public class SetupClass {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
 
-        // Check for environment variable to determine if running in GitHub Actions
+//      Check for environment variable to determine if running in GitHub Actions
         String isGithubActions = System.getenv("GITHUB_ACTIONS");
 
         if ("true".equalsIgnoreCase(isGithubActions)) {
