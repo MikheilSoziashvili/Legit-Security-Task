@@ -30,7 +30,7 @@ jobs:
       uses: logikal-io/install-chrome@v1.0.1
       with:
     # The version to install (exactly as in https://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-stable)
-        version: 14.0.5735.90
+        version: 
 
           
     # Run tests with Maven
